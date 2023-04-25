@@ -29,6 +29,7 @@ index = pinecone.Index(index_name)
 # Take this as user input
 query = "I-V characteristics of MgB2"
 
+# Translation API call
 response = openai.Completion.create(
   model="text-davinci-003",
   prompt="Translate this to English: " + query,
@@ -39,10 +40,12 @@ response = openai.Completion.create(
   presence_penalty=0.0
 )
 
+# Created embeddings for translated text
+xq = openai.Embedding.create(input=response['choices'][0]['text'], engine=MODEL)['data'][0]['embedding']
 
-xq = openai.Embedding.create(input=query, engine=MODEL)['data'][0]['embedding']
-
+# Return top 5 results
 res = index.query([xq], top_k=5, include_metadata=True)
 
+# Display top 5 results
 for match in res['matches']:
     print(f"{match['score']:.2f}: {match['metadata']['title']}")
