@@ -37,15 +37,16 @@ def predict():
     # Translation API call
     response = openai.Completion.create(
         model="text-davinci-003",
-        prompt="Translate this to English: " + query,
+        prompt="Translate this to English (if already in english, just return input text): " + query,
         temperature=0.3,
-        max_tokens=100,
+        max_tokens=15,
         top_p=1.0,
         frequency_penalty=0.0,
         presence_penalty=0.0
     )
 
     # Created embeddings for translated text
+    print(response['choices'][0]['text'])
     xq = openai.Embedding.create(input=response['choices'][0]['text'], engine=MODEL)['data'][0]['embedding']
     res = index.query([xq], top_k=5, include_metadata=True)
     
