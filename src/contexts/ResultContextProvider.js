@@ -11,10 +11,23 @@ export const ResultContextProvider = ({ children }) => {
     const [searchTerm, setSearchTerm] = useState('');
 
   
-    const getResults = async (id) => {
+    const getResults = async (text) => {
         setIsLoading(true);
-        console.log(`${baseUrl}${id}`)
-        const response = await fetch(`${baseUrl}${id}`, {
+        const resp_data = fetch('/predictor', {
+			method: "POST", 
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify(text)}).then((response) => {return response.json()}).then((data) => {return data});
+		// 	resp_data.then(function(result) {
+		// 		const values = Object.values(result);
+		// 		const concatenatedString = values.join(',');
+		// 		return concatenatedString
+                
+		// })
+        const concatenatedString = await resp_data;
+        const valuesArray = Object.values(concatenatedString);
+        const delimitedString = valuesArray.join(',');
+        
+        const response = await fetch(`${baseUrl}${delimitedString}`, {
             method: 'GET'
 		}).then(response => response.text()).then(data => {
 			var escapedData = data.replace(/%/g, '%25'); // replace % with %25
@@ -46,7 +59,7 @@ export const ResultContextProvider = ({ children }) => {
 		const data = await remappedArr;
           
 
-        console.log(data)
+    
         setResults(data);
 
         setIsLoading(false);

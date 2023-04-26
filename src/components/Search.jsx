@@ -4,7 +4,7 @@ import {useResultContext} from '../contexts/ResultContextProvider'
 
 export const Search = () => {
 	const [text, setText] = useState("");
-	const { setSearchTerm, searchTerm, getResults } = useResultContext();
+	const { getResults } = useResultContext();
 	// const [ debouncedValue ] = useDebounce(text, 800);
 	
 	// useEffect(() => {
@@ -14,17 +14,8 @@ export const Search = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(text);
-		const resp_data = fetch('/predictor', {
-			method: "POST", 
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify(text)}).then((response) => {return response.json()}).then((data) => {return data});
-			resp_data.then(function(result) {
-				const values = Object.values(result);
-				const concatenatedString = values.join(',');
-				console.log(concatenatedString);
-				getResults(`${concatenatedString}`)
-		})
+
+		getResults(`${text}`)
 		setText("");
 	}
 

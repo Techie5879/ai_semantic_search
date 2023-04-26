@@ -5,15 +5,8 @@ import {Loading} from './Loading'
 import {useResultContext} from '../contexts/ResultContextProvider'
 
 export const Results = () => {
-  const {results, isLoading, getResults, searchTerm} = useResultContext();
-  
+  const {results, isLoading} = useResultContext();
 
-	//   useEffect(() => {
-	// 	if (searchTerm) {
-	// 		getResults(`${searchTerm}`)
-			
-	// 	}
-	//   }, [searchTerm])
   
 
   if (isLoading || !results) return <Loading />
