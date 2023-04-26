@@ -26,4 +26,5 @@ It even includes multi language support using OpenAI translation, which makes se
 ![Query3](/images/query3.png?raw=true "Query3")
 
 ## How It Works: 
-This project uses
+The dataset consists of the arXiv Dataset (https://www.kaggle.com/datasets/Cornell-University/arxiv), of which, the first 15000 entries have been used for this project (due to Pinecone Restrictions). The embeddings for the abstract of each article were created (using OpenAI's ada-002 model), which has a dimensionality of 1536. These embeddings were then indexed in the Pincone Vector Database.
+For Queries, this project uses OpenAI's translation (text completion via text-davinci-003 model) and embeddings (ada-002 model) to first translate given query into English and then embed it. A query is then made to the Pinecone database, which computes the top 5 items with consine similarity and returns the results as per ranking (most similar first), which is then displayed using the React frontend.
