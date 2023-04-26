@@ -48,7 +48,10 @@ def predict():
     # Created embeddings for translated text
     xq = openai.Embedding.create(input=response['choices'][0]['text'], engine=MODEL)['data'][0]['embedding']
     res = index.query([xq], top_k=5, include_metadata=True)
+    
     for i in range(len(res['matches'])):
         final[i] = res['matches'][i]['id']
+
     json_obj = json.dumps(final)
+    print(json_obj)
     return json_obj

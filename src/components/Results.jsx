@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 // import {useLocation} from 'react-router-dom'
 // import ReactPlayer from 'react-'
 import {Loading} from './Loading'
@@ -8,12 +8,12 @@ export const Results = () => {
   const {results, isLoading, getResults, searchTerm} = useResultContext();
   
 
-  useEffect(() => {
-	if (searchTerm) {
-		getResults(`${searchTerm}`)
-		
-	}
-  }, [searchTerm])
+	//   useEffect(() => {
+	// 	if (searchTerm) {
+	// 		getResults(`${searchTerm}`)
+			
+	// 	}
+	//   }, [searchTerm])
   
 
   if (isLoading || !results) return <Loading />
