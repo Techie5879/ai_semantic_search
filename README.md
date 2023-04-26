@@ -24,3 +24,6 @@ It even includes multi language support using OpenAI translation, which makes se
 
 ### Example Query (Bengali): "মিন রিসোর্স কোয়ান্টাম কম্পিউটেশন বৃদ্ধি" (translation: min resource quantum computation increase)
 ![Query3](/images/query3.png?raw=true "Query3")
+
+## How It Works: 
+This project uses

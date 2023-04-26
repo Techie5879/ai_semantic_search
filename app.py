@@ -34,7 +34,6 @@ index = pinecone.Index(index_name)
 @app.route('/predictor', methods=["POST"])
 def predict():
     query = request.get_json()
-    print(query)
     # Translation API call
     response = openai.Completion.create(
         model="text-davinci-003",
@@ -45,6 +44,7 @@ def predict():
         frequency_penalty=0.0,
         presence_penalty=0.0
     )
+
     # Created embeddings for translated text
     xq = openai.Embedding.create(input=response['choices'][0]['text'], engine=MODEL)['data'][0]['embedding']
     res = index.query([xq], top_k=5, include_metadata=True)
@@ -53,5 +53,5 @@ def predict():
         final[i] = res['matches'][i]['id']
 
     json_obj = json.dumps(final)
-    print(json_obj)
+    
     return json_obj
