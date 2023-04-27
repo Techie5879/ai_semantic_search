@@ -46,7 +46,7 @@ def predict():
     )
 
     # Created embeddings for translated text
-    print(response['choices'][0]['text'])
+    
     xq = openai.Embedding.create(input=response['choices'][0]['text'], engine=MODEL)['data'][0]['embedding']
     res = index.query([xq], top_k=5, include_metadata=True)
     
