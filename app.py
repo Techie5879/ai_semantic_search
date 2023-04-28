@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 from flask import Flask, request
 import os
 import openai
-# from tqdm.auto import tqdm
 import pinecone
 import json
 
